@@ -1,1 +1,2 @@
-print("Hello World!")
+dead = False
+print(dead)
