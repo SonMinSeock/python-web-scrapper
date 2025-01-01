@@ -1,5 +1,5 @@
-def say_hello(user_name, user_age):
+def say_hello(user_name="anonymous"):
     print("Hello", user_name, "How are you?")
-    print("you are", user_age, "years old")
 
-say_hello("Son MinSeok", 26)
+say_hello("Son MinSeok")
+say_hello()
