@@ -1,25 +1,8 @@
-def plus(first_num = 0, second_num = 0):
-    result = first_num + second_num
-    print(first_num, "+", second_num, "=", result)
+def tax_calc(money):
+    return money * 0.35
 
-def minus(first_num=0, second_num=0):
-    result = first_num - second_num
-    print(first_num, "-", second_num, "=", result)
+def pay_tax(tax):
+    print("thank you for paying", tax)
 
-def multiply(first_num=0, second_num=0):
-    result = first_num * second_num
-    print(first_num, "X", second_num, "=", result)
-
-def divide(first_num=0, second_num=0):
-    result = first_num / second_num
-    print(first_num, "/", second_num, "=", result)
-
-def powerOf(first_num=0, second_num=0):
-    result = first_num ** second_num
-    print(first_num, "^", second_num, "=", result)
-
-plus(2, 3)
-minus(3, 7)
-multiply(9, 5)
-divide(6, 3)
-powerOf(2, 8)
+# to_pay = tax_calc(3200000)
+pay_tax(tax_calc(3200000))
