@@ -1,4 +1,4 @@
-def say_hello():
-    print("How are you?")
+def say_hello(user_name):
+    print("Hello", user_name, "How are you?")
 
-say_hello()
+say_hello("Son MinSeok")
