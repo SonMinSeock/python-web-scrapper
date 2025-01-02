@@ -1,20 +1,16 @@
-"""
 from random import randint
+print("Welcome to Python Casino")
+pc_choice = randint(1, 100)
 
-user_choice = int(input("Choose number:"))
-pc_choice = randint(1, 50)
+playing = True
 
-if user_choice == pc_choice:
-    print("You won!")
-elif user_choice > pc_choice:
-    print("Lower! Computer choice ", pc_choice)
-elif user_choice < pc_choice:
-    print("Higher! Computer choice ", pc_choice)
-"""
+while playing:
+    user_choice = int(input("Choose number (1-100):"))
 
-# while 구문
-distance = 0
-
-while distance < 20:
-    print(f"I'm running: {distance}km" )
-    distance += 1
+    if user_choice == pc_choice:
+        print("You won!")
+        playing = False
+    elif user_choice > pc_choice:
+        print("Lower!")
+    elif user_choice < pc_choice:
+        print("Higher!")
