@@ -1,35 +1,16 @@
-def make_juice(fruit):
-    return f"{fruit}+🥤"
+from random import randint
+print("Welcome to Python Casino")
+pc_choice = randint(1, 100)
 
-def add_ice(juice):
-    return f"{juice}+🧊"
+playing = True
 
-def add_sugar(iced_juice):
-    return f"{iced_juice}+🍭"
+while playing:
+    user_choice = int(input("Choose number (1-100):"))
 
-
-juice = make_juice("🍎")
-cold_juice = add_ice(juice)
-final_juice = add_sugar(cold_juice)
-
-print(final_juice)
-
-
-def part(bolt):
-    return f"{bolt}+🔩"
-
-def raw(metal):
-    return f"{metal}+🔨"
-
-def parts(engine):
-    return f"{engine}+🔥"
-
-def build(car):
-    return f"{car}+ =🏎️"
-
-piece = part("⚙️")
-side = raw(piece)
-body = parts(side)
-whole = build(body)
-
-print(whole)
+    if user_choice == pc_choice:
+        print("You won!")
+        playing = False
+    elif user_choice > pc_choice:
+        print("Lower!")
+    elif user_choice < pc_choice:
+        print("Higher!")
