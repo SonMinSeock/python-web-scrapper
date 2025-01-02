@@ -1,3 +1,8 @@
-num = 10
-if num == 10:
-    print("True!")
+winner = 20
+
+if winner > 10:
+    print("Winner is greater than 10")
+elif winner < 10:
+    print("Winner is less than 10")
+else:
+    print("Winner is 10")
