@@ -1,8 +1,10 @@
-winner = 20
+age = int(input("How old are you?"))
 
-if winner > 10:
-    print("Winner is greater than 10")
-elif winner < 10:
-    print("Winner is less than 10")
+if (age < 18):
+    print("You can't drink!")
+elif age >= 18 and age <= 35:
+    print("You drink beer!")
+elif age == 60 or age == 70:
+    print("Birthday Party!")
 else:
-    print("Winner is 10")
+    print("You can drink!")
