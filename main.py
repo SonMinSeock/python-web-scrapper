@@ -1,6 +1,16 @@
-days = ("Mon", "Tue", "Wed")
-print(days)
-print(days[1])
+player = {
+    "name": "Son",
+    "age": 26,
+    "alive": True,
+    "fav_food": ["🍕", "🍔"]
+}
 
-# days[1] = "Thu"
-# print(days)
+print(player.get("age"))
+# print(player.get("fav_food"))
+print(player["fav_food"])
+
+player["xp"] = 1500
+print(player)
+
+player["fav_food"].append("🍜")
+print(player["fav_food"])
