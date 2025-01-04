@@ -14,9 +14,17 @@ for website in websites:
         website = f"https://{website}"
     response = get(website)
     
-    if response.status_code == 200:
-        results[website] = "OK"        
+    code = response.status_code
+
+    if code >= 500:
+        results[website] = "5xx / server error"
+    elif code >= 400:
+        results[website] = "4xx / client error"
+    elif code >= 300:
+        results[website] = "3xx / redirection "
+    elif code >= 200:
+        results[website] = "2xx / successful"
     else:
-        results[website] = "FAILED"
+        results[website] = "1xx / informational response"
 
 print(results)
