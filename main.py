@@ -1,30 +1,23 @@
-from requests import get
-websites = (
-    "google.com",
-    "https://airbnb.com",
-    "twitter.com",
-    "facebook.com",
-    "https://tiktok.com"
-) 
+player = {}
 
-results = {}
+def create_player(name, xp, team_name):
+    return {
+    "name": name,
+    "XP": xp,
+    "team": team_name
+}
 
-for website in websites:
-    if not website.startswith("https://"):
-        website = f"https://{website}"
-    response = get(website)
-    
-    code = response.status_code
+def introduce_player(player):
+    name = player["name"]
+    team = player["team"]
+    print(f"Hello! My name is {name} and I play for {team}")
 
-    if code >= 500:
-        results[website] = "5xx / server error"
-    elif code >= 400:
-        results[website] = "4xx / client error"
-    elif code >= 300:
-        results[website] = "3xx / redirection "
-    elif code >= 200:
-        results[website] = "2xx / successful"
-    else:
-        results[website] = "1xx / informational response"
+son = create_player("Son", 1000, "Team X")
+nico = create_player("Nico", 1500, "Team Blue")
 
-print(results)
+teams = {
+    "Team X": [son],
+    "Team Blue": [nico]
+}
+
+print(teams)
