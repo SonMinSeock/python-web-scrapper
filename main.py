@@ -1,12 +1,18 @@
-class Puppy:
-    def __init__(self, name, breed):
-        print("Puppy is born!")
+class Dog:
+    def __init__(self, name, breed, age):
         self.name = name
-        self.age = 0.1
+        self.age = age
         self.breed = breed
+    
+class GuardDog(Dog):
+    def rrrr(self):
+        print("stay away!")
+
+class Puppy(Dog):
     def __str__(self):
         return f"Puppy named {self.name}, breed: {self.breed}"
-        
+    def woof_woof(self):
+        print("Woof Woof!")
 
 puppy1 = Puppy(name="뚜비", breed="비숑")
 puppy2 = Puppy(name="톰", breed="요크셔테리어")
@@ -20,3 +26,5 @@ print(puppy3.name, puppy3.breed, puppy3.age)
 print(puppy4.name, puppy4.breed, puppy4.age)
 
 print(puppy1, puppy2, puppy3, puppy4)
+
+puppy1.introduce()
