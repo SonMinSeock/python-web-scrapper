@@ -1,16 +1,41 @@
-# from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright
+import time
+from bs4 import BeautifulSoup
 
-# playwright = sync_playwright().start()
+playwright = sync_playwright().start()
 
-# browser = playwright.chromium.launch(headless=False)
+browser = playwright.chromium.launch(headless=False)
 
-# page = browser.new_page()
+page = browser.new_page()
 
-# page.goto("https://google.com")
+page.goto("https://www.wanted.co.kr/")
 
-# page.screenshot(path="screenshot.png")
+time.sleep(5)
 
-def plus(a, b, c, d, e):
-    return a + b
+page.click("button.Aside_searchButton__rajGo")
+# page.locator("button.Aside_searchButton__rajGo").click()
 
-plus(10, d=20, a=False, c=[1, 2, 3 ,4, 5], e="hello")
+time.sleep(5)
+
+page.get_by_placeholder("검색어를 입력해 주세요.").fill("flutter")
+
+time.sleep(5)
+
+page.keyboard.down("Enter")
+
+time.sleep(5)
+
+page.click("a#search_tab_position")
+
+time.sleep(5)
+
+for x in range(5):
+    page.keyboard.down("End")
+    time.sleep(5)
+
+
+content = page.content()
+
+playwright.stop()
+
+soup = BeautifulSoup(content, "html.parser")
