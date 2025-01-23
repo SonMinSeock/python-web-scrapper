@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
 import time
 from bs4 import BeautifulSoup
+import csv
 
 playwright = sync_playwright().start()
 
@@ -33,7 +34,6 @@ page.goto("https://www.wanted.co.kr/search?query=flutter&tab=overview")
 #     page.keyboard.down("End")
 #     time.sleep(5)
 
-
 content = page.content()
 
 playwright.stop()
@@ -60,5 +60,10 @@ for job in jobs:
     jobs_db.append(job)
 
 
-print(jobs_db)
-print(len(jobs_db))
+file = open("jobs.csv", "w")
+
+writter = csv.writer(file)
+writter.writerow(jobs_db[0].keys())
+
+for job in jobs_db:
+    writter.writerow(job.values())
