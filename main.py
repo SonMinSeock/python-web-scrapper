@@ -1,3 +1,15 @@
+# BLUEPRINT | DONT EDIT
+playing = True
+
+a = int(input("Choose a number:\n"))
+b = int(input("Choose another one:\n"))
+operation = input(
+    "Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n"
+)
+# /BLUEPRINT
+
+# 👇🏻 YOUR CODE 👇🏻:
+
 def calc(num1, num2, operation):
     result = 0
     if operation == '+':
@@ -22,21 +34,9 @@ def checkInputOperation(operation):
         return False
     return True    
 
-operation = ""
-first_num = ""
-second_num = ""
-
-while operation != "exit":
+while playing:
     while True:
-        first_num = input("Choose a number: \n")
-        if checkInputNum(first_num):
-            first_num = int(first_num)
-            break
-    
-    while True:
-        second_num = input("Choose another one: \n")
-        if checkInputNum(second_num):
-            second_num = int(second_num)
+        if checkInputNum(str(a)) and checkInputNum(str(b)):
             break
 
     while True:
@@ -44,6 +44,9 @@ while operation != "exit":
         if checkInputOperation(operation):
             break
 
-    if operation != "exit":
-        result = calc(first_num, second_num, operation)
+    if operation == "exit":
+        playing = False
+    else:
+        result = calc(a, b, operation)
         print(f"Result: {result}")
+        a = result  # Update the first number with the result for further calculations
