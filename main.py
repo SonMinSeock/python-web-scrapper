@@ -1,47 +1,49 @@
-# 👇🏻 YOUR CODE 👇🏻:
-def get_yearly_revenue(monthly_revenue):
-    if monthly_revenue > 0:
-        return monthly_revenue * 12
-    else:
-        return 0
+def calc(num1, num2, operation):
+    result = 0
+    if operation == '+':
+        result = num1 + num2
+    elif operation == '-':
+        result = num1 - num2
+    elif operation == '*':
+        result = num1 * num2
+    elif operation == '/':
+        result = num1 / num2
+    return result
 
-def get_yearly_expenses(monthly_expenses):
-    if monthly_expenses > 0:
-        return monthly_expenses * 12
-    else:
-        return 0
+def checkInputNum(num):
+    if not num.isdigit():
+        print("Invalid input! Please enter a valid number.")
+        return False
+    return True
 
-def get_tax_amount(profit):
-    tax_rate = 0
+def checkInputOperation(operation):
+    if operation not in ["+", "-", "*", "/", "exit"]:
+        print("Invalid operation! Please choose from +, -, *, / or exit.")
+        return False
+    return True    
 
-    if profit > 100000:
-        tax_rate = 0.25
-    else:
-        tax_rate = 0.15
+operation = ""
+first_num = ""
+second_num = ""
+
+while operation != "exit":
+    while True:
+        first_num = input("Choose a number: \n")
+        if checkInputNum(first_num):
+            first_num = int(first_num)
+            break
     
-    return profit * tax_rate
+    while True:
+        second_num = input("Choose another one: \n")
+        if checkInputNum(second_num):
+            second_num = int(second_num)
+            break
 
-def apply_tax_credits(tax_amount, tax_credits):
-    return tax_amount * tax_credits
+    while True:
+        operation = input("Choose an operation: \n   Options are: +, -, * or /.\n   Write 'exit' to finish.\n")
+        if checkInputOperation(operation):
+            break
 
-
-# /YOUR CODE
-
-# BLUEPRINT | DONT EDIT
-
-monthly_revenue = 5500000
-monthly_expenses = 2700000
-tax_credits = 0.01
-
-yearly_revenue = get_yearly_revenue(monthly_revenue)
-yearly_expenses = get_yearly_expenses(monthly_expenses)
-
-profit = yearly_revenue - yearly_expenses
-
-tax_amount = get_tax_amount(profit)
-
-final_tax_amount = tax_amount - apply_tax_credits(tax_amount, tax_credits)
-
-print(f"Your tax bill is: ${final_tax_amount}")
-
-# /BLUEPRINT
+    if operation != "exit":
+        result = calc(first_num, second_num, operation)
+        print(f"Result: {result}")
