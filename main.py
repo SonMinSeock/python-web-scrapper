@@ -1,69 +1,73 @@
 from playwright.sync_api import sync_playwright
-import time
 from bs4 import BeautifulSoup
 import csv
+import time
 
-playwright = sync_playwright().start()
+class JobScraper:
+    def __init__(self, keywords):
+        self.keywords = keywords
+    
+    def get_page_content(self, url):
+        playwright = sync_playwright().start()
 
-browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch(headless=False)
 
-page = browser.new_page()
+        page = browser.new_page()
 
-page.goto("https://www.wanted.co.kr/search?query=flutter&tab=overview")
+        page.goto(url)
 
-# time.sleep(5)
+        time.sleep(5)
 
-# page.click("button.Aside_searchButton__rajGo")
-# # page.locator("button.Aside_searchButton__rajGo").click()
+        content = page.content()
 
-# time.sleep(5)
+        playwright.stop()
 
-# page.get_by_placeholder("검색어를 입력해 주세요.").fill("flutter")
+        return content
 
-# time.sleep(5)
+    def scraper_jobs(self, content):
+        soup = BeautifulSoup(content, "html.parser")
 
-# page.keyboard.down("Enter")
+        jobs = soup.find_all("div", class_="JobCard_container__REty8")
 
-# time.sleep(5)
+        jobs_db = []
 
-# page.click("a#search_tab_position")
+        for job in jobs:
+            link = f"https://www.wanted.co.kr/{job.find('a')['href']}"
+            title = job.find("strong", class_="JobCard_title__HBpZf").text
+            company_name = job.find("span", class_="JobCard_companyName__N1YrF").text
+            reward = job.find("span", class_="JobCard_reward__cNlG5").text
 
-# time.sleep(5)
+            job = {
+                "title": title,
+                "link": link,
+                "company_name": company_name,
+                "reward": reward
+            }
 
-# for x in range(5):
-#     page.keyboard.down("End")
-#     time.sleep(5)
+            jobs_db.append(job)
+    
+        return jobs_db
 
-content = page.content()
+    def write_csv(self, keyword, jobs_db):
+        file = open(f"{keyword}_jobs.csv", "w")
 
-playwright.stop()
+        writter = csv.writer(file)
+        writter.writerow(jobs_db[0].keys())
 
-soup = BeautifulSoup(content, "html.parser")
+        for job in jobs_db:
+            writter.writerow(job.values())
+        
+        file.close()
 
-jobs = soup.find_all("div", class_="JobCard_container__REty8")
+    def run(self):
+        for keyword in self.keywords:
+            content = self.get_page_content(f"https://www.wanted.co.kr/search?query={keyword}&tab=overview")
 
-jobs_db = []
+            jobs_db = self.scraper_jobs(content)
 
-for job in jobs:
-    link = f"https://www.wanted.co.kr/{job.find('a')['href']}"
-    title = job.find("strong", class_="JobCard_title__HBpZf").text
-    company_name = job.find("span", class_="JobCard_companyName__N1YrF").text
-    reward = job.find("span", class_="JobCard_reward__cNlG5").text
+            self.write_csv(keyword, jobs_db)
 
-    job = {
-        "title": title,
-        "link": link,
-        "company_name": company_name,
-        "reward": reward
-    }
+keywords = ["react", "nextjs", "typescript", "flutter", "python"]
 
-    jobs_db.append(job)
-
-
-file = open("jobs.csv", "w")
-
-writter = csv.writer(file)
-writter.writerow(jobs_db[0].keys())
-
-for job in jobs_db:
-    writter.writerow(job.values())
+scraper = JobScraper(keywords)
+scraper.run()
